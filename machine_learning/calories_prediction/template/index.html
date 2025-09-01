@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calorie Expenditure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3f8efc;
+      --background-gradient: linear-gradient(135deg, #f0f4ff, #dfe9f3);
+      --input-bg: #f8f9fc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background-gradient);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 420px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #222;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 24px;
+      border: 1px solid #ddd;
+      background: var(--input-bg);
+      border-radius: 10px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background-color: #fff;
+    }
+
+    button {
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #3276d1;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 24px;
+        margin: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href='/calories_calculator'></a>
+  <div class="container">
+    <h2>Calorie Expenditure</h2>
+    <form action='/get_calories_calculator' id="searchForm" method="post">
+      <label for="heartRate">❤️ Heart Rate (bpm)</label>
+      <input type="number" id="heartRate" name="heartRate" placeholder="e.g., 120" required />
+
+      <label for="bodyTemp">🌡️ Body Temperature (°C)</label>
+      <input type="number" id="bodyTemp" name="bodyTemp" placeholder="e.g., 37.5" step="0.1" required />
+
+      <label for="duration">⏱️ Duration (minutes)</label>
+      <input type="number" id="duration" name="duration" placeholder="e.g., 45" required />
+
+      <button type="submit">Calculate</button>
+    </form>
+{% if prediction is defined %}
+      <div id="result">
+        🔥 Estimated Calories Burned: {{ prediction }} kcal <br>
+        ❤️ Heart Rate (bpm) :{{heartRate}}<br>
+        🌡️ Body Temperature (°C)  :{{bodyTemp}}<br>
+        ⏱️ Duration (minutes) :{{duration}}<br>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
